@@ -1,4 +1,5 @@
-﻿using FoodService.Services;
+﻿using FoodService.Models;
+using FoodService.Services;
 using FoodService.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,6 +35,24 @@ namespace FoodService.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(RestaurantEditViewModel model)
+        {
+            var newRestaurant = new Restaurant();
+            newRestaurant.Cuisine = model.Cuisine;
+            newRestaurant.Name = model.Name;
+
+            newRestaurant = _restaurantData.Add(newRestaurant);
+
+            return RedirectToAction("Details", new { id = newRestaurant.Id } );
         }
     }
 }
