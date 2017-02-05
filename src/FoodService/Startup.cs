@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Routing;
 using FoodService.Services;
+using FoodService.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FoodService
 {
@@ -35,7 +37,9 @@ namespace FoodService
             services.AddMvc();
             services.AddSingleton(Configuration);
             services.AddSingleton<IGreeter, Greeter>();
-            services.AddScoped<IRestaurantData, InMemoryRestaurantData>();
+            services.AddScoped<IRestaurantData, SqlRestaurantData>();
+            services.AddDbContext<FoodServiceDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("FoodService")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

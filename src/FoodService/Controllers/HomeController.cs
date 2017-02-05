@@ -42,8 +42,9 @@ namespace FoodService.Controllers
         {
             return View();
         }
-
+        
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(RestaurantEditViewModel model)
         {
             if (ModelState.IsValid)
