@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Routing;
 using FoodService.Services;
 using FoodService.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace FoodService
 {
@@ -40,6 +41,8 @@ namespace FoodService
             services.AddScoped<IRestaurantData, SqlRestaurantData>();
             services.AddDbContext<FoodServiceDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("FoodService")));
+            services.AddIdentity<User, IdentityRole>()
+                    .AddEntityFrameworkStores<FoodServiceDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +67,8 @@ namespace FoodService
             }
 
             app.UseFileServer();
+
+            app.UseIdentity();
 
             app.UseMvc(ConfigureRoutes);
 

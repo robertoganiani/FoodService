@@ -1,10 +1,12 @@
 ﻿using FoodService.Models;
 using FoodService.Services;
 using FoodService.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FoodService.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private IGreeter _greeter;
@@ -16,6 +18,7 @@ namespace FoodService.Controllers
             _restaurantData = restaurantData;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var viewModel = new HomePageViewModel();
