@@ -67,12 +67,9 @@ namespace FoodService
             }
 
             app.UseFileServer();
-
+            app.UseNodeModules(env.ContentRootPath);
             app.UseIdentity();
-
             app.UseMvc(ConfigureRoutes);
-
-            app.Run(ctx => ctx.Response.WriteAsync("Not Found"));
         }
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)

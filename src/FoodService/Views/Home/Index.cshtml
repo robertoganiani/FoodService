@@ -5,12 +5,11 @@
 }
 
 <h1>Welcome!</h1>
+<a class="btn btn-primary" asp-action="Create">Create</a>
+<br /><br />
 
 @foreach (var restaurant in Model.Restaurants)
 {
     @Html.Partial("_Summary", restaurant)
 }
 
-<div>
-    <a asp-action="Create">Create</a>
-</div>
